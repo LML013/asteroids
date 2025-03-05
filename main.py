@@ -13,8 +13,14 @@ def main():
     dt = 0
     fps = 60
 
-    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
 
+    Player.containers = (updatable, drawable)
+
+    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    
+    
 
     #Primary Game Loop
     while(True):
@@ -23,11 +29,12 @@ def main():
                 return
 
         
-
         pygame.Surface.fill(screen, (0,0,0))
 
-        player.update(dt)
-        player.draw(screen)
+        updatable.update(dt)
+
+        for thing in drawable:
+            thing.draw(screen)
 
         pygame.display.flip()
 
